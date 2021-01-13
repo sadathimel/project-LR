@@ -4,9 +4,24 @@
     $user = new User();
 ?>
 
+<?php
+    $loginmsg = Session::get("loginmsg");
+    if (isset($loginmsg)) {
+        echo $loginmsg;
+    }
+?>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h2>User list <sapn class="pull-right" ><strong>Welcome!</strong>Himel</sapn></h2>
+                <h2>User list <sapn class="pull-right" ><strong>Welcome!</strong>
+                        <?php
+                            $username = Session::get("username");
+                            if (isset($username)){
+                                echo $username;
+
+                            }
+                        ?>
+                    </sapn>
+                </h2>
             </div>
             <div class="panel-body">
                 <table class="table table-striped">

@@ -1,5 +1,12 @@
 <?php
 include 'inc/header.php';
+include 'lib/user.php';
+?>
+<?php
+    $user = new User();
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])){
+        $userLogin = $user->userLogin($_POST);
+    }
 ?>
 
     <div class="panel panel-default">
@@ -7,11 +14,17 @@ include 'inc/header.php';
             <h2>User login </h2>
         </div>
 
+        <?php
+        if (isset($userLogin)){
+            echo $userLogin;
+        }
+        ?>
+
         <div class="panel-body">
             <form action="" method="POST">
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="text" id="email" name="email" class="form-control" required/>
+                    <input type="text" id="email" name="email" class="form-control" />
                 </div>
 
                 <div class="form-group">
