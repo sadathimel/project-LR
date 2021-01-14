@@ -1,10 +1,11 @@
 <?php
 include 'inc/header.php';
-include 'lib/user.php';
+include 'lib/User.php';
+Session::checkLogin();
 ?>
 <?php
     $user = new User();
-    if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         $userLogin = $user->userLogin($_POST);
     }
 ?>

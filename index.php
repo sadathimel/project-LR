@@ -1,7 +1,8 @@
 <?php
     include 'inc/header.php';
     include 'lib/User.php';
-    $user = new User();
+    Session::checkSession();
+
 ?>
 
 <?php
@@ -9,18 +10,18 @@
     if (isset($loginmsg)) {
         echo $loginmsg;
     }
+    Session::set("loginmsg", NULL);
 ?>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h2>User list <sapn class="pull-right" ><strong>Welcome!</strong>
+                <h2>User list <sapn class="pull-right" >Welcome!<strong>
                         <?php
                             $username = Session::get("username");
                             if (isset($username)){
                                 echo $username;
-
                             }
                         ?>
-                    </sapn>
+                        </strong></sapn>
                 </h2>
             </div>
             <div class="panel-body">
@@ -32,25 +33,26 @@
                        <th width="20%">Email</th>
                        <th width="20%">Action</th>
                    </tr>
-
+<?php
+    $user = new User();
+    $getUserData = $user->getUserData();
+    if ($getUserData) {
+        $i = 0;
+        foreach ($getUserData as $data){
+            $i++;
+?>
                     <tr>
-                        <td>01</td>
-                        <td>Sadat Himel</td>
-                        <td>Himel</td>
-                        <td>sadat.himel@gmail.com</td>
+                        <td><?php echo $i; ?></td>
+                        <td><?php echo $data['name']; ?></td>
+                        <td><?php echo $data['username']; ?></td>
+                        <td><?php echo $data['email']; ?></td>
                         <td>
-                            <a class="btn btn-primary" href="profile.php?id=1">View</a>
+                            <a class="btn btn-primary" href="profile.php?id=<?php echo $data['id']; ?>">View</a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>02</td>
-                        <td>Tanvir ahmed opel</td>
-                        <td>opel</td>
-                        <td>tanvir@gmail.com</td>
-                        <td>
-                            <a class="btn btn-primary" href="profile.php?id=1">View</a>
-                        </td>
-                    </tr>
+<?php } }else{?>
+        <tr><td colspan="5"><h2>No User Data Found......</h2>></td>></tr>>
+<?php } ?>
                 </table>
             </div>
         </div>
